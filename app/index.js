@@ -13,8 +13,8 @@ class App {
         let _package = require('../package');
         return (request,response)=>{
             //每个请求逻辑
-            fs.readFile('./public/index.html','utf8',(error,data)=>{
-                response.end(JSON.stringify(_package));
+            fs.readFile('./public/text.md','utf8',(error,data)=>{
+                response.end(data);
             })
         }
     }
