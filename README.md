@@ -1,4 +1,13 @@
 # notebook
 使用nodejs实现
 
-##下一步目标
+##修改的内容
+
+app/index.js 修改为
+
+```javascript
+staticServer().then(apiServer).then(()=>{
+  response.end()
+})
+```
+
