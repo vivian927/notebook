@@ -2,15 +2,16 @@
 //typeof Promise == 'function'
 //prototype ==> then/catch
 //静态方法 ==> all/race/resolve/reject
+const assert = require('assert');
 
-//first step: new Promise
+const p = Promise.resolve(1);
 
-var t = Promise.resolve(1);
-var another = Promise.resolve({
-    then: function(resolve,reject){
-        reject(2)
-    }
-});
-//another.then(val=>console.log(val));
-another.catch(val=>console.log(val));
-console.log(another);
+const p1 = p.then(val=>{
+    console.log(val);
+    return val+1;
+}) //resolved 2
+
+const p2 = p1.then(val=>{
+    console.log(val);
+    assert.equal(val,2);
+})

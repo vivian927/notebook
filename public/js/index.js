@@ -11,9 +11,16 @@ setTimeout(function(){
             console.error(err);
         }
     })
+    //模拟post
     $.ajax({
         url: '/list.action',
-        method: 'get',
+        method: 'post',
+        headers:{
+            'content-type':'application/json'
+        },
+        data: JSON.stringify([
+            'cdddd','creedlimo'
+        ]),
         success: function(data){
             $('#shop').html(data.map(function(e){
                 return '<li>'+e+'</li>';

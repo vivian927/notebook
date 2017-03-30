@@ -5,32 +5,42 @@ const fs = require('fs');
 const path = require('path');
 const staticServer = require('./static-server');
 const apiServer = require('./api');
+const urlParser = require('./url-parser')
 class App {
     constructor(){
 
     }
     initServer(){
         //初始化工作
-        
         return (request,response)=>{
-            let {url} = request;
-            let body = '';
-            let headers = {};
-            if(url.match('action')){
-                apiServer(url).then(val=>{
+            request.context = {
+                body: '',
+                query: {},
+                method: 'get'
+            };
+            apiServer(request).then(val=>{
+
+                if(!val){
+                    //Promise
+                    return staticServer(request);
+                }else{
+                    return val;
+                }
+            }).then(val=>{
+                let base = {'X-powered-by':'nodejs'};
+                let body = '';
+                if (!(val instanceof Buffer)){
                     body = JSON.stringify(val);
-                    headers = {'Content-Type': 'application/json'};  
-                    let finalHeader = Object.assign(headers,{'X-powered-by':'nodejs'});
+                    let finalHeader = Object.assign(
+                        base,
+                        {'Content-Type': 'application/json'}
+                    )
                     response.writeHead(200,'ok',finalHeader);
-                    response.end(body);
-                })
-            } else{
-                staticServer(url).then((body)=>{
-                    let finalHeader = Object.assign(headers,{'X-powered-by':'nodejs'});
-                    response.writeHead(200,'ok',finalHeader);
-                    response.end(body);
-                })
-            } 
+                } else {
+                    body = val;
+                }
+                response.end(body);
+            })
         }
     }
 }
