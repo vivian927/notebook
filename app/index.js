@@ -14,31 +14,29 @@ class App {
         //初始化工作
         return (request,response)=>{
             request.context = {
-                body: '',
+                body: null,
                 query: {},
-                method: 'get'
+                method: ''
             };
-            apiServer(request).then(val=>{
-
-                if(!val){
-                    //Promise
-                    return staticServer(request);
-                }else{
-                    return val;
-                }
-            }).then(val=>{
-                let base = {'X-powered-by':'nodejs'};
-                let body = '';
-                if (!(val instanceof Buffer)){
-                    body = JSON.stringify(val);
-                    let finalHeader = Object.assign(
-                        base,
-                        {'Content-Type': 'application/json'}
-                    )
-                    response.writeHead(200,'ok',finalHeader);
+            urlParser(request).then(request=>{
+                if (!request.context.body){
+                    return apiServer(request)
                 } else {
-                    body = val;
-                }
+                    return request;
+                }  
+            }).then(request=>{
+                if (!request.context.body){
+                    return staticServer(request);
+                } 
+                return request;
+            }).then(request=>{
+                let header = {'X-powered-by':'nodejs'};
+                let {body} = request.context;
+                if (!(body instanceof Buffer)){
+                    body = JSON.stringify(body);
+                    header['Content-Type'] = 'application/json';
+                } 
+                response.writeHead(200,'ok',header);
                 response.end(body);
             })
         }

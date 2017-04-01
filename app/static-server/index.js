@@ -2,7 +2,7 @@ const path = require('path');
 const fs = require('fs');
 let getPath = (url) => path.resolve(process.cwd(),'public',`.${url}`);
 let staticServer = (request) => {
-    let {url} = request
+    let {url,context} = request
     return new Promise((resolve,reject)=>{
         if (url == '/'){
                 url = '/index.html';
@@ -12,7 +12,8 @@ let staticServer = (request) => {
             if (err) {
                 resolve(`Read Files Wrong ${err.stack}`);
             }
-            resolve(data);
+            context.body = data;
+            resolve(request);
         });
     })
 }
