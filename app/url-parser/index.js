@@ -13,11 +13,12 @@ module.exports = (ctx)=>{
             
             //@TODO
             if (method == 'post'){
-                let data = ''
+                let data = [];
                 ctx.req.on('data',(chunk)=>{
-                    data += chunk;
+                    data.push(chunk);
                 }).on('end',()=>{
-                    reqCtx.body = JSON.parse(data); //body
+                    let endData = Buffer.concat(data).toString();
+                    reqCtx.body = JSON.parse(endData); //body
                     //通知下一个流程
                     resolve();
                 })
