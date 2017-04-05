@@ -1,0 +1,3 @@
+设计expres和koa的api风格,模拟use callback方法。
+将request和response抽象为一个引用对象。
+Buffer讲解
