@@ -1,9 +1,9 @@
 {
   "name": "public",
   "version": "1.0.0",
-  "description": "front-end for pure-node-notebook",
+  "description": "front-end for notebook",
   "main": "index.js",
-  "author": "slashhuang",
+  "author": "Creedlimo",
   "scripts": {
     "start": "rm -rf dist  && webpack --config ./build/webpack.config.js"
   },

@@ -87,4 +87,3 @@ exports.loaders = [
                 }
             }
 ];
-Contact GitHub API Training Shop Blog About
