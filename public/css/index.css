@@ -3,28 +3,31 @@
     padding: 0;
     text-decoration: none;}
 
+.layout {
+    max-width: 900px;
+    margin: 0 auto;
+}
 #nav {
-    width: 100%;
-    padding-left: 50px;
-    height: 60px;
-    background-color: orange;
+    height: 88px;
+    background-color: #212425;
     display: flex;
     align-items: center;
 }
 
-#nav #header {
-    width: 50px;
-    height: 50px;
+#nav #avatar {
+    width: 88px;
+    height: 88px;
     border-radius: 50%;
     overflow: hidden;
 }
 
-#nav #header img {
+#nav #avatar img {
     width: 100%;
 }
 
 #nav a {
     margin-left: 20px;
+    color: #fff;
 }
 .out {
     margin-top: 100px;
