@@ -40,6 +40,7 @@ class App {
                     statusMessage: 'resolve ok',
                     headers: {}, //response的返回报文
                     body: '', //返回给前端的内容区
+                    hasUser: false,
                 }
             };
             //Promise + request+response

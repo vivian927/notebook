@@ -7,16 +7,18 @@ const App = require('./app');
 const server = new App();
 
 //middleware
+const cookieParser = require('./app/cookie-parser');
 const staticServer = require('./app/static-server');
 const apiServer = require('./app/api');
 const urlParser = require('./app/url-parser')
-const viewServer = require('./app/view-server')
+const viewServer = require('./app/view-server');
+
+server.use(cookieParser);
 server.use(urlParser);
 server.use(apiServer);
 server.use(staticServer);
 server.use(viewServer);
-
 //start app
 http.createServer(server.initServer()).listen(PORT,()=>{
     console.log('listening on ',PORT);
-})
+});

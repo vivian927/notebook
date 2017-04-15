@@ -32,7 +32,10 @@ module.exports = (ctx) =>{
                         filename: layoutPath
                     });
                     console.log(ejsName);
-                    let html = render({templateName: ejsName});
+                    let html = render({
+                        templateName: ejsName,
+                        hasUser: resCtx.hasUser
+                    });
 
                     // let htmlPath = path.resolve(viewPath,ejsName+'.ejs');
                     // let html = fs.readFileSync(htmlPath,'utf8');
