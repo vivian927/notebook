@@ -12,16 +12,17 @@ const mime = require('mime');
 const urlrewriteMap = require('./urlrewrite');
 //路由 routes ==> controller ==> 结果 MVC
 module.exports = (ctx) =>{
-    let {req,resCtx} = ctx;
-    let {url} = req;
+    let {resCtx} = ctx;
+    let {pathname} = ctx.reqCtx;
     
     return Promise.resolve({
         then: (resolve,reject)=>{
-            if (url.match('action')||url.match(/\./)){
+            // console.log(pathname)
+            if (pathname.match('action')||pathname.match(/\./)){
                 resolve()
             } else {
                 let viewPath = path.resolve(__dirname,'ejs');
-                let ejsName = urlrewriteMap[url];
+                let ejsName = urlrewriteMap[pathname];
                 if (ejsName) {
                     let layoutPath = path.resolve(viewPath,'layout.ejs');
                     let layoutHTML = fs.readFileSync(layoutPath,'utf8');

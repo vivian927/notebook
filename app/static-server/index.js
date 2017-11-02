@@ -1,13 +1,16 @@
 const path = require('path');
 const fs = require('fs');
 const mime = require('mime');
-let getPath = (url) => path.resolve(process.cwd(),'public',`.${url}`);
+let getPath = (pathname) => path.resolve(process.cwd(),'public',`.${pathname}`);
 let staticServer = (ctx) => {
-    let {url} = ctx.req;
-    let {res,resCtx} = ctx;
+    let {pathname} = ctx.reqCtx;
+    let {resCtx} = ctx;
+    
     return new Promise((resolve,reject)=>{
-        if(url.match(/\./) && !url.match('action')){
-            let _path = getPath(url);
+        
+
+        if(pathname.match(/\./) && !pathname.match('action')){
+            let _path = getPath(pathname);
             resCtx.headers = Object.assign(resCtx.headers,{
                 'Content-Type': mime.lookup(_path)
             });

@@ -1,24 +1,40 @@
+const Router = require('./router')
+//获取分类列表
+Router.get('/categoryList.action', ctx=>{
+    return {a:1}
+})
+//增加分类
+Router.get('/category.action', ctx=>{
+    return {a:2}
+})
+//添加博客
+Router.get('/blog.action', ctx=>{
+    return  {a:3}
+})
+
+// let api = '/blogDetail.action'
+// let api = '/blogList.action'
+// let api = '/deleteBlog.action'
 
 module.exports=(ctx)=>{
-    let {url,method} = ctx.req;
-    let {reqCtx,resCtx} = ctx;
-    let {res} = ctx;
+    let {reqCtx,resCtx,res} = ctx;
+    let {pathname,method} = reqCtx;
+    
     let apiMap = {
         '/list.action':['animal','pork','chicken'],
         '/user.action':['moli','creed', 'china']
     };
-    method = method.toLowerCase();
     return Promise.resolve({
         then:(resolve,reject)=>{
-            if (url.match('action')){
-                if (method == 'get'){
-                    resCtx.body = JSON.stringify(apiMap[url]);
-                } else {
-                    let {body} = reqCtx;
-                    resCtx.body = JSON.stringify(body);
-                }
-                resCtx.headers = Object.assign(resCtx.headers,{
-                    'Content-Type':'application/json'
+            
+            if (pathname.match('action')){
+
+                return Router.routes(ctx).then(val=>{
+                    resCtx.body = JSON.stringify(val);
+                    resCtx.headers = Object.assign(resCtx.headers,{
+                        'Content-Type':'application/json'
+                    })
+                    resolve()
                 })
             }
             resolve();
