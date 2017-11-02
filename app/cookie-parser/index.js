@@ -3,27 +3,26 @@
  */
 const Cookie= require('cookie');
 //设置白名单
-const whiteName = ['/luyxyy'];
+const whiteNameList = ['/luyxyy'];
 
 module.exports = (ctx)=>{
-    let {pathname} = ctx.req;
+    let {pathname} = ctx.reqCtx;
     let {cookie} = ctx.req.headers;
     let {res,resCtx} = ctx;
-    let cookieStr = time=>`name=luyxyy;Max-Age=${time}`;
-    let cookieObj={};
-    if (cookie) {
-        cookieObj = Cookie.parse(cookie);
-    } 
+    let cookieObj = Cookie.parse(cookie || '')
     
     return Promise.resolve({
-        then:(resolve,reject)=>{          
-            if(whiteName.indexOf(pathname) > -1){
-                res.setHeader('Set-Cookie', cookieStr(3600));
-            };
-            if (cookieObj['name']){
+        then:(resolve,reject)=>{        
+            let cookieStr = time=>`auth=luyxyy;Max-Age=${time}`;
+
+            if (cookieObj['auth']){
                 resCtx.hasUser = true;
                 res.setHeader('Set-Cookie', cookieStr(3600));
             }
+            if(whiteNameList.indexOf(pathname) > -1){
+                res.setHeader('Set-Cookie', cookieStr(3600));
+            };
+            
             if(pathname === '/logout'){
                 res.setHeader('Set-Cookie',cookieStr(0))
             }

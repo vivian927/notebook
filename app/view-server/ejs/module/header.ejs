@@ -4,18 +4,50 @@
     <meta charset="utf-8">
     <meta content="Creedlimo,博客,陆宇箫,前端,coffee_limo" name="keywords">
     <meta content="Creedlimo的个人博客" name="description">
+    <meta name="viewport" charset="UTF-8" content="user-scalable=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
     <title>Creedlimo的博客</title>
-    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="/dist/common.css">
+    <link rel="stylesheet" href="/dist/<%- viewName%>.css">
     <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+</head>
 <body>
-    <div id="nav">
-        <div id="avatar"><img src="./img/header.jpg" alt=""></div>
-        <a href="./">主页</a>
-        <a href="./list">文章列表</a>
-        <a href="./about">关于作者</a>
-        <% if(hasUser){%>
-        <a href="/write"> 写博客</a>
-        <% } %>
-        
-        
-    </div>
+<div class='header clear-fix'>
+	<img class='avatar' src='/img/avatar.jpeg' />
+	<ul class='nav'>
+		<li>
+			<a href='/'>首页</a>
+		</li>
+		<li>
+			<a href='/about'>关于</a>
+		</li>
+		<li>
+			<a href='/list'>博客列表</a>
+		</li>
+		<%if(hasUser){%>
+		<li>
+			<a href='/manage'>管理博客</a>
+		</li>
+		<li>
+			<a href='/logout'>登出</a>
+		</li>
+		<% }%>
+		<li>
+			<form class="search"
+				 action="//google.com/search" method="get" accept-charset="utf-8">
+					<a>搜索</a>
+					<input type="search" id="search" name="q"
+							autocomplete="off" maxlength="20" placeholder="搜索">
+					<input type="hidden" name="q" value="site:slashhuang.github.io">
+			</form>
+		</li>
+	</ul>
+</div>
+<script type="text/javascript">
+    Object.defineProperty(window, 'hasUser', {
+        configurable:false,
+        enumerable:false,
+        value:<%- hasUser%>,
+        writable:false
+    })
+</script>
