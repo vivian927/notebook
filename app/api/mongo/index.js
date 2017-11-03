@@ -29,7 +29,7 @@ exports.$_getBlogDetail = query => {
   let condition = {
     _id: mongoose.Types.ObjectId(query.id)
   }
-  // _id ==> //objectId
+  // _id ==> //objectId 
   return BlogModel.findOne(condition).then(blog => {
     return {
       status: 1,

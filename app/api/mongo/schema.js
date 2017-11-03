@@ -12,7 +12,7 @@ const blogSchema = new Schema({
     category: categorySchema, //分类
     date: String
 }, {
-    _id: false,
+    _id: false, 
     strict: false
 })
 
