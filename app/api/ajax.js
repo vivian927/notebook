@@ -26,8 +26,20 @@ Router.post('/blog.action', ctx=>{
 
     return  $_saveBlog(blog)
 })
+//博客详情页面
+Router.get('/blogDetail.action',ctx=>{
+	let { query } = ctx.reqCtx
+	return $_getBlogDetail(query)
+})
+//获取博客列表
+Router.get('/blogList.action',ctx=>{
+	let { query } = ctx.reqCtx
+	return $_getBlogList(query)
+})
+//删除博客
+Router.post('/deleteBlog.action',ctx=>{
+	let { body } = ctx.reqCtx
+	return $_deleteBlog(body) 
+})
 
-// let api = '/blogDetail.action'
-// let api = '/blogList.action'
-// let api = '/deleteBlog.action'
 module.exports = Router

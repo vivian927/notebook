@@ -16,7 +16,6 @@ module.exports = (ctx)=>{
     
     return Promise.resolve({
         then:(resolve,reject)=>{
-            console.log(reqCtx)
             //@TODO
             if (method == 'post'){
                 let data = [];

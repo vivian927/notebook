@@ -33,4 +33,6 @@ mongoose.connection.on('error', ()=>{
 //start app
 http.createServer(server.initServer()).listen(PORT,()=>{
     console.log('listening on ',PORT);
+}).on('error',err=>{
+    console.log(`Error! ${err.message}`)
 });

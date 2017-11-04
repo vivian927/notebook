@@ -3,7 +3,7 @@
  */
 const Cookie= require('cookie');
 //设置白名单
-const whiteNameList = ['/luyxyy'];
+const whiteNameList = ['/limo'];
 
 module.exports = (ctx)=>{
     let {pathname} = ctx.reqCtx;
@@ -13,7 +13,7 @@ module.exports = (ctx)=>{
     
     return Promise.resolve({
         then:(resolve,reject)=>{        
-            let cookieStr = time=>`auth=luyxyy;Max-Age=${time}`;
+            let cookieStr = time=>`auth=limo;Max-Age=${time}`;
 
             if (cookieObj['auth']){
                 resCtx.hasUser = true;
